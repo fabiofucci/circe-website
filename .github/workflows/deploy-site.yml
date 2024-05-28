@@ -1,5 +1,5 @@
 name: deploy-circe-website
-run-name: "[Circe Website] Pubblicazione. Versione 0.1.0"
+run-name: "[Circe Website] Pubblicazione. Versione 0.1.1"
 on:
   push:
     branches:
@@ -7,7 +7,7 @@ on:
 env:
   REGISTRY: docker.io
   DOCKER_REPO: ${{ secrets.DOCKER_HUB_USERNAME }}/docker_repo
-  IMAGE_NAME: circe-website-0.1.0
+  IMAGE_NAME: circe-website-0.1.1
 
 jobs:
   build-and-deploy-website:
