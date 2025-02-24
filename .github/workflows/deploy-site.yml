@@ -1,5 +1,5 @@
 name: deploy-circe-website
-run-name: "[Circe Website] Pubblicazione. Versione 0.1.1"
+run-name: "[Circe Website] Pubblicazione. Versione 0.1.2"
 on:
   push:
     branches:
@@ -7,7 +7,7 @@ on:
 env:
   REGISTRY: docker.io
   DOCKER_REPO: ${{ secrets.DOCKER_HUB_USERNAME }}/docker_repo
-  IMAGE_NAME: circe-website-0.1.1
+  IMAGE_NAME: circe-website-0.1.2
 
 jobs:
   build-and-deploy-website:
@@ -36,20 +36,20 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.DOCKER_REPO }}:${{ env.IMAGE_NAME }},
             ${{ env.REGISTRY }}/${{ env.DOCKER_REPO }}:circe-website-latest
 
-      - name: KUBECTL Setup
-        uses: azure/setup-kubectl@v3
-        with:
-          version: 'v1.25.4'
-        id: install
+      #- name: KUBECTL Setup
+      #  uses: azure/setup-kubectl@v3
+      #  with:
+      #    version: 'v1.25.4'
+      #  id: install
+#
+#      - name: KUBECTL Set Context
+#        uses: azure/k8s-set-context@v2
+#        with:
+#          method: kubeconfig
+#          kubeconfig: ${{ secrets.KUBECTL_CONFIG }}
+#          context: do-ams3-circe-cluster
 
-      - name: KUBECTL Set Context
-        uses: azure/k8s-set-context@v2
-        with:
-          method: kubeconfig
-          kubeconfig: ${{ secrets.KUBECTL_CONFIG }}
-          context: do-ams3-circe-cluster
-
-      - name: KUBECTL Comandi
-        run: |
-          kubectl -n www-circe-cloud set image deployment/circe-website-deploy circe-website-container=${{ env.REGISTRY }}/${{ env.DOCKER_REPO }}:${{ env.IMAGE_NAME }}
+#      - name: KUBECTL Comandi
+#        run: |
+#          kubectl -n www-circe-cloud set image deployment/circe-website-deploy circe-website-container=${{ env.REGISTRY }}/${{ env.DOCKER_REPO }}:${{ env.IMAGE_NAME }}
 
